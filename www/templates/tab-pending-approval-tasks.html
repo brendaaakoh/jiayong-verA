@@ -1,0 +1,61 @@
+   <ion-header-bar class="bar-subheader">
+        <div class="button-bar">
+            <div class="button-bar">
+                <a class="button button-clear button-dark " ng-class="{'active' : activeTab == 1}" ng-click = "changeActiveTab(1)" >Pending</a>
+                <a class="button button-clear button-dark "  ng-class="{'active' : activeTab == 2}" ng-click = "changeActiveTab(2)" >Approved</a>
+
+            </div>
+        </div>
+  </ion-header-bar>
+<ion-view title="Pending Approval Task" animation="no-animation" cache-view="false" hide-back-button ="true">
+
+ <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon button-clear button-dark ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="refresh()"></ion-refresher>
+  <div class="has-header" ng-if="activeTab==1">
+    <ion-list can-swipe="true" ng-show="currentUser.proposedTasks.length != 0">
+      <ion-item ng-repeat="task in currentUser.proposedTasks" ng-click = "detail(task)" >
+          <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a>
+
+      </ion-item>
+    </ion-list>
+    <ion-list can-swipe="true" ng-show="currentUser.proposedTasks.length == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p>You have no pending proposed task to approve</p>
+      </center>
+    </ion-list>
+  </div>
+  
+<!-- tab for approved proposed tasks -->
+
+  <div class="has-header" ng-if="activeTab==2">
+    <ion-list can-swipe="true" ng-show="currentUser.approvedProposedTasks.length != 0">
+      <ion-item ng-repeat="task in currentUser.approvedProposedTasks" ng-click = "viewApproved(task)">
+          <a class="item item-thumbnail-left">
+            <img src="img/venkman.jpg">
+            <h2>{{task.name}}</h2>
+            <p>{{task.description}}</p>
+            <small>{{ task.startDate | date }} | {{ task.startTime | date:'shortTime' }}</small><br/>
+            <small> ${{task.Average}} </small>
+          </a> 
+
+      </ion-item>
+    </ion-list>
+    <ion-list can-swipe="true" ng-show="currentUser.approvedProposedTasks.length == 0">
+      <center>
+        <h1>Oops.</h1>
+        <p> You have no approved proposed task</p>
+      </center>
+    </ion-list>
+  </div>
+  </ion-content>
+</ion-view>
