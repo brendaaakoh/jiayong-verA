@@ -556,7 +556,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
     // }
   };
 
-  if ($scope.task.name == "Wash the dishes"){
+  if ($scope.task.name == "Wash the dishes"  && $scope.task.isRejected == 'true'){
     var alertPopupTask1 = $ionicPopup.alert({
        title: 'TASK 3 OF 3',
        template: '<center> Congratulation! You have just completed the last task. One more step to the end of the experiment.</center>',
@@ -581,6 +581,10 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
         
       }
     });
+  }
+  $scope.showForm = function(){
+
+    var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}id=id+'_';if(!gi.call(d,id)){qs=ce.call(d,'link');qs.rel='stylesheet';qs.id=id;qs.href=b+'share-button.css';s=gt.call(d,'head')[0];s.appendChild(qs,s)}
   }
   $scope.showSink = true;
   $scope.switchImage = function()
