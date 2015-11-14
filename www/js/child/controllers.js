@@ -27,6 +27,21 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
 .controller('MyTasksCtrl', function($filter, $scope, $state, $ionicPopup, $window, $http,$ionicLoading, $rootScope) {
   var config = { cache: false };
   $scope.activeTab = 1;
+  var newSignIn = JSON.parse($window.localStorage['newSignIn']) ;
+  if (newSignIn)
+  {
+    var alertPopup = $ionicPopup.alert({
+       title: 'TASK 1 OF 3',
+       template: '<center>Welcome to JiaYong web experiment. Thank you for your participant. Please proceed with "<b>TASK 1</b>".</center>'
+     });
+     alertPopup.then(function(res) {
+          newSignIn = false;
+          $window.localStorage['newSignIn'] = JSON.stringify(newSignIn);
+          $state.go('menu.tab.my-tasks',{},{reload:true});
+          // $ionicLoading.hide();
+    });
+       // $scope.$broadcast('scroll.refreshComplete');
+  }; 
   $scope.refresh = function(){
    var alertPopup = $ionicPopup.alert({
      title: 'New Notification',
@@ -519,7 +534,7 @@ $scope, $http, $ionicModal, $ionicActionSheet, $ionicLoading, $window)
       }
       
   }
-  if ($scope.task.Average == 6){
+  if ($scope.task.Average == 6 && $scope.task.isAvailable == 'false' && $scope.task.isCompleted == 'false'){
     var alertPopupTask1 = $ionicPopup.alert({
        title: 'TASK 1 OF 3',
        template: '<center> Congratulation! You have just completed <b>TASK 1</b>. Please proceed with "<b>TASK 2</b>".</center>'
